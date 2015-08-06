@@ -23,7 +23,6 @@ module.exports = function(grunt) {
         supportedTypes[key] = options.supportedTypes[key];
       }
     }
-
     files.forEach(function(file) {
       if(!('dest' in file) || !('cwd' in file)) {
         var msg = 'Configuration error: please set "cwd" and "dest" properly';
@@ -52,6 +51,10 @@ module.exports = function(grunt) {
           job = engine.html(options);
         } else if (supportedTypes[type] === "css") {
           job = engine.css(options);
+        } else if (supportedTypes[type] === "js") {
+          job = engine.js(options);
+        } else if (supportedTypes[type] === "txt") {
+          job = engine.txt(options);
         }
         job.start(content).on("entry", function (data) {
           grunt.log.writeln('Changing ' + data.before.cyan + ' -> ' + data.after.cyan);
